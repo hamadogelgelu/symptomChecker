@@ -44,15 +44,16 @@ async function fetchData() {
 }
 
 // IIFE (Immediately Invoked Function Expression) to use await at top level
-
+(async () => {
   const data = await fetchData();
 
   if (!data || !data.result?.analysis?.possibleConditions) {
     console.error("No possible conditions found");
-
+    return; // Prevent further execution if data is invalid
   }
 
   const conditions = data.result.analysis.possibleConditions;
   for (const condition of conditions) {
     console.log(condition.condition);
   }
+})();

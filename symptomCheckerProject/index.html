@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Symptom Checker</h1>
+   
+    <form id="symptomForm">
+        <label>Enter Symptoms:</label>
+        <input type="text" id="symptomInput" placeholder="Enter a symptom" autocomplete="off" />
+        <button type="button" id="addSymptomBtn">Add Symptom</button>
+    </form>
+    <h3>Symptoms:</h3>
+    <ul id ="selectedSymptoms"></ul>
+    <br>
+    <label for="ageInput">Age: </label>
+    <input type ="number" id="ageInput" placeholder="Enter Your Age" min="0">
+    <br>
+    <br>
+    <label id="genderLabel">Sex: Unselected</label>
+    <button type="button" id="genderMale">Male</button>
+    <button type="button" id="genderFemale">Female</button>
+    <br>
+    <br>
+    <label id = "height">Height: </label>
+    <input type="number" id="heightInput" placeholder="Enter Your Height in cm" min="0">
+    <br>
+    <br>
+    <label id = "weight">Weight: </label>
+    <input type="number" id="weightInput" placeholder="Enter Your Weight in cm" min="0">
+    <br>
+    <br>
+   
+    <form id="allergiesForm">
+         <label>Enter Allergies:</label>
+        <input type="text" id="allergyInput" placeholder="Enter an allergy" autocomplete="off" />
+        <button type="button" id="addAllergy">Add Allergy</button>
+    </form>
+    <h3>Allergies:</h3>
+    <ul id ="selectedAllergies"></ul>
+    
+    <br>
+    <br>
+     <form id="medicalHistoryForm">
+        <label>Enter Medical History:</label>
+        <input type="text" id="historyInput" placeholder="Enter Medical History" autocomplete="off" />
+        <button type="button" id="addHistory">Add History</button>
+    </form>
+    <h3>Medical History:</h3>
+    <ul id ="medicalHistory"></ul>
+
+    <br>
+    <br>
+    <h3>Lifestyle Questions:</h3>
+
+    <label>Smoking</label>
+    <input type="checkbox" id="smokeCheckbox">
+    <br>
+    <label>Alcohol</label>
+    <button type="button" id="alcoholNone">None</button>
+    <button type="button" id="alcoholLight">Light</button>
+    <button type="button" id="alcoholModerate">Moderate</button>
+    <button type="button" id="alcoholHeavy">Heavy</button>
+    <br>
+    <label>Exercese: </label>
+    <button type="button" id="exerciseNone">None</button>
+    <button type="button" id="exerciseLight">Light</button>
+    <button type="button" id="exerciseModerate">Moderate</button>
+    <button type="button" id="exerciseHeavy">Heavy</button>
+    <br>
+    <label>Diet: </label>
+    <button type="button" id="dietUnhealthy">None</button>
+    <button type="button" id="dietModeratelyHealthy">Moderate</button>
+    <button type="button" id="dietHealthy">Healthy</button>
+</body>
+</html>
+
+<script>
+    const symptoms = [];
+    let allergies = [];
+    let medicalHistory = [];
+    let smoking = false;
+    let alcohol = '';
+    let exercise = '';
+    let diet = '';
+    let age = 0;
+    let height = 0;
+    let weight = 0;
+    let sex = '';
+    function updateSymptomsList() {
+        const selectedSymptomsList = document.getElementById('selectedSymptoms');
+        selectedSymptomsList.innerHTML = '';
+        symptoms.forEach((symptom, index) => {
+            const li = document.createElement('li');
+            li.textContent = symptom + ' ';
+            const removeBtn = document.createElement('button');
+            removeBtn.textContent = 'x';
+            removeBtn.style.marginLeft = '8px';
+            removeBtn.onclick = function() {
+                symptoms.splice(index, 1);
+                updateSymptomsList();
+            };
+            li.appendChild(removeBtn);
+            selectedSymptomsList.appendChild(li);
+        });
+    }
+
+    function updateMedicalHistory()
+    {
+        let medicalHistoryList = document.getElementById('medicalHistory');
+        for (const history of medicalHistory) {
+            let li = document.createElement('li');
+            li.textContent = history + ' ';
+            let removebtn = document.createElement('button');
+            removebtn.textContent = 'x';
+            removebtn.style.marginLeft = '8px';
+            removebtn.onclick = function() {
+                medicalHistory = medicalHistory.filter(a => a != history)
+                updateMedicalHistory();
+            }
+            li.appendChild(removebtn);
+            medicalHistoryList.appendChild(li);
+        }
+        
+        
+    }
+
+    function updateAllergiesList() {
+        let allergiesList = document.getElementById('selectedAllergies');
+        allergiesList.innerHTML = '';
+        for (const allergy of allergies) {
+            let li = document.createElement('li')
+            li.textContent = allergy + ' ';
+            let removeBtn = document.createElement('button');
+            removeBtn.textContent = 'x';
+            removeBtn.style.marginleft = '8px';
+            removeBtn.onclick = function() {
+                allergies = allergies.filter(a => a !==allergy)
+                updateAllergiesList();
+            }
+            li.appendChild(removeBtn);
+            allergiesList.appendChild(li);
+        }
+    }
+
+    document.getElementById('addSymptomBtn').addEventListener('click', function() {
+        const input = document.getElementById('symptomInput');
+        const symptom = input.value.trim();
+        if (symptom && !symptoms.includes(symptom)) {
+            symptoms.push(symptom);
+            updateSymptomsList();
+            input.value = '';
+        }
+        else if (symptom && symptoms.includes(symptom)) {
+            input.value = 'Symptom already added';
+            document.getElementById('symptomInput').addEventListener('focus', function() {
+            if (input.value === 'Symptom already added') {
+                input.value = '';
+            }
+          });
+            
+        }
+    });
+
+    document.getElementById('addHistory').addEventListener('click', function(){
+        let input = document.getElementById('historyInput');
+        let history = input.value.trim();
+        if (history && !medicalHistory.includes(history))
+        {
+            medicalHistory.push(history);
+            input.value = '';
+            updateMedicalHistory();
+        }
+        else if (history && medicalHistory.includes(history))
+        {
+            input.value = 'History already added';
+            document.getElementById('historyInput').addEventListener('focus', function() {
+                if (input.value === 'History already added') {
+                    input.value = '';
+                }
+            });
+        }
+    })
+
+    document.getElementById('symptomForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        // Use the symptoms array as needed
+        alert('Symptoms submitted: ' + symptoms.join(', '));
+    });
+    document.getElementById('genderMale').addEventListener('click', function(){
+        const genderLabel = document.getElementById('genderLabel');
+        genderLabel.textContent = 'Sex: Male';
+        sex = 'Male';
+    })
+    document.getElementById('genderFemale').addEventListener('click', function(){
+        const genderLabel = document.getElementById('genderLabel');
+        genderLabel.textContent = 'Sex: Female';
+        sex = 'Female';
+    })
+
+    document.getElementById('addAllergy').addEventListener('click', function() {
+        let input = document.getElementById('allergyInput');
+        let allergy = input.value.trim();
+        if (allergy && !allergies.includes(allergy))
+        {
+            allergies.push(allergy);
+            input.value = '';
+        }
+        else if (allergy && allergies.includes(allergy))
+        {
+            input.value = 'Allergy already added';
+            document.getElementById('allergyInput').addEventListener('focus', function() {
+                if (input.value === 'Allergy already added') {
+                    input.value = '';
+                }
+            });
+        }
+
+        updateAllergiesList();
+    })
+
+
+
+</script>
