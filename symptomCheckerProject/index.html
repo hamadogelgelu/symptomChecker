@@ -30,7 +30,7 @@
     <br>
     <br>
     <label id = "weight">Weight: </label>
-    <input type="number" id="weightInput" placeholder="Enter Your Weight in cm" min="0">
+    <input type="number" id="weightInput" placeholder="Enter Your Weight in pounds" min="0">
     <br>
     <br>
    
@@ -51,36 +51,49 @@
     </form>
     <h3>Medical History:</h3>
     <ul id ="medicalHistory"></ul>
-
+    <br>
+    <br>
+     <form id="medications">
+        <label>Enter Current Medications:</label>
+        <input type="text" id="medicationInput" placeholder="Enter Medications" autocomplete="off" />
+        <button type="button" id="addMedication">Add Medication</button>
+    </form>
+    <h3>Medications:</h3>
+    <ul id ="medicationsList"></ul>
     <br>
     <br>
     <h3>Lifestyle Questions:</h3>
 
-    <label>Smoking</label>
+    <label>Smoking:</label>
     <input type="checkbox" id="smokeCheckbox">
     <br>
-    <label>Alcohol</label>
+    <label id="alcoholLabel">Alcohol: </label>
     <button type="button" id="alcoholNone">None</button>
     <button type="button" id="alcoholLight">Light</button>
     <button type="button" id="alcoholModerate">Moderate</button>
     <button type="button" id="alcoholHeavy">Heavy</button>
     <br>
-    <label>Exercese: </label>
+    <label id="exerciseLabel">Exercise: </label>
     <button type="button" id="exerciseNone">None</button>
     <button type="button" id="exerciseLight">Light</button>
     <button type="button" id="exerciseModerate">Moderate</button>
     <button type="button" id="exerciseHeavy">Heavy</button>
     <br>
-    <label>Diet: </label>
+    <label id="dietLabel">Diet: </label>
     <button type="button" id="dietUnhealthy">None</button>
     <button type="button" id="dietModeratelyHealthy">Moderate</button>
     <button type="button" id="dietHealthy">Healthy</button>
+
+    <br>
+    <br>
+    <button type="button" id="getDiagnosisBtn">Get Diagnosis</button>  
 </body>
 </html>
 
 <script>
     const symptoms = [];
     let allergies = [];
+    let medications = [];
     let medicalHistory = [];
     let smoking = false;
     let alcohol = '';
@@ -108,9 +121,32 @@
         });
     }
 
+    function updateUserData() {
+        let userData = {
+            symptoms: symptoms,
+            age: age,
+            sex: sex,
+            height: height,
+            weight: weight,
+            lifestyle: {
+                smoking: smoking,
+                alcohol: alcohol,
+                exercise: exercise,
+                diet: diet
+            },
+            medicalHistory: medicalHistory,
+            medications: medications,
+
+
+        }
+        return userData;
+    }
+
     function updateMedicalHistory()
     {
+
         let medicalHistoryList = document.getElementById('medicalHistory');
+        medicalHistoryList.innerHTML = '';
         for (const history of medicalHistory) {
             let li = document.createElement('li');
             li.textContent = history + ' ';
@@ -149,7 +185,7 @@
     document.getElementById('addSymptomBtn').addEventListener('click', function() {
         const input = document.getElementById('symptomInput');
         const symptom = input.value.trim();
-        if (symptom && !symptoms.includes(symptom)) {
+        if (symptom && !symptoms.includes(symptom) && symptom !== 'Symptom already added') {
             symptoms.push(symptom);
             updateSymptomsList();
             input.value = '';
@@ -168,7 +204,7 @@
     document.getElementById('addHistory').addEventListener('click', function(){
         let input = document.getElementById('historyInput');
         let history = input.value.trim();
-        if (history && !medicalHistory.includes(history))
+        if (history && !medicalHistory.includes(history) && history !== 'History already added')
         {
             medicalHistory.push(history);
             input.value = '';
@@ -204,7 +240,7 @@
     document.getElementById('addAllergy').addEventListener('click', function() {
         let input = document.getElementById('allergyInput');
         let allergy = input.value.trim();
-        if (allergy && !allergies.includes(allergy))
+        if (allergy && !allergies.includes(allergy) && allergy !== 'Allergy already added')
         {
             allergies.push(allergy);
             input.value = '';
@@ -222,6 +258,130 @@
         updateAllergiesList();
     })
 
+    document.getElementById('addMedication').addEventListener('click', function() {
+        let input = document.getElementById('medicationInput');
+        let medication = input.value.trim();
+        if (medication && !medications.includes(medication) && medication !== 'Medication already added')
+        {
+            medications.push(medication);
+            input.value = '';
+        }
+        else if (medication && medications.includes(medication))
+        {
+            input.value = 'Medication already added';
+            document.getElementById('medicationInput').addEventListener('focus', function() {
+                if (input.value === 'Medication already added') {
+                    input.value = '';
+                }
+            });
+        }
+        updateMedicationsList();
+    })
+
+    function updateMedicationsList() {
+        let medicationsList = document.getElementById('medicationsList');
+        medicationsList.innerHTML = '';
+        for (const medication of medications) {
+            let li = document.createElement('li');
+            li.textContent = medication + ' ';
+            let removeBtn = document.createElement('button');
+            removeBtn.textContent = 'x';
+            removeBtn.style.marginLeft = '8px';
+            removeBtn.onclick = function() {
+                medications = medications.filter(m => m !== medication);
+                updateMedicationsList();
+            };
+            li.appendChild(removeBtn);
+            medicationsList.appendChild(li);
+        }
+    }
+
+    document.getElementById('smokeCheckbox').addEventListener('change', function() {
+        smoking = this.checked;
+    });
+
+    document.getElementById('alcoholNone').addEventListener('click', function() {
+        alcohol = 'None';
+        label = document.getElementById('alcoholLabel');
+        label.textContent = 'Alcohol: None';
+    });
+    document.getElementById('alcoholLight').addEventListener('click', function() {
+        alcohol = 'Light';
+        label = document.getElementById('alcoholLabel');
+        label.textContent = 'Alcohol: Light';
+    });
+    document.getElementById('alcoholModerate').addEventListener('click', function() {
+        alcohol = 'Moderate';
+        label = document.getElementById('alcoholLabel');
+        label.textContent = 'Alcohol: Moderate';
+    });
+    document.getElementById('alcoholHeavy').addEventListener('click', function() {
+        alcohol = 'Heavy';
+        label = document.getElementById('alcoholLabel');
+        label.textContent = 'Alcohol: Heavy';
+    });
+    document.getElementById('exerciseNone').addEventListener('click', function() {
+        exercise = 'None';
+        label = document.getElementById('exerciseLabel');
+        label.textContent = 'Exercise: None';
+    });
+    document.getElementById('exerciseLight').addEventListener('click', function() {
+        exercise = 'Light';
+        label = document.getElementById('exerciseLabel');
+        label.textContent = 'Exercise: Light';
+    });
+    document.getElementById('exerciseModerate').addEventListener('click', function() {
+        exercise = 'Moderate';
+        label = document.getElementById('exerciseLabel');
+        label.textContent = 'Exercise: Moderate';
+    });
+    document.getElementById('exerciseHeavy').addEventListener('click', function() {
+        exercise = 'Heavy';
+        label = document.getElementById('exerciseLabel');
+        label.textContent = 'Exercise: Heavy';
+    });
+    document.getElementById('dietUnhealthy').addEventListener('click', function() {
+        diet = 'None';
+        label = document.getElementById('dietLabel');
+        label.textContent = 'Diet: None';
+    });
+    document.getElementById('dietModeratelyHealthy').addEventListener('click', function() {
+        diet = 'Moderate';
+        label = document.getElementById('dietLabel');
+        label.textContent = 'Diet: Moderate';
+    });
+    document.getElementById('dietHealthy').addEventListener('click', function() {
+        diet = 'Healthy';
+        label = document.getElementById('dietLabel');
+        label.textContent = 'Diet: Healthy';
+    });
+    document.getElementById('getDiagnosisBtn').addEventListener('click', function() {
+        age = parseInt(document.getElementById('ageInput').value);
+        height = parseInt(document.getElementById('heightInput').value);
+        weight = parseInt(document.getElementById('weightInput').value);
+       
+
+        let data = updateUserData();
+        
+        async function callFunc(userData)
+        {
+            try { 
+            let response = await getDiagnosis(userData); // Calls function from DiagnosisAPI.js
+            console.log(response);
+        // You can update the UI here with the diagnosis
+        } catch (error) 
+        {
+        console.error(error);
+        }
+        }
+
+        callFunc(data);
+
+    });
+
+
 
 
 </script>
+
+<script src="DiagnosisAPI.js"></script>
