@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <link rel="stylesheet" href="results.css">
+</head>
+<body>
+    <div id="header">
+        <h1>Symptom Checker Results</h1>
+    </div>
+    
+        <h2>Likely Diseases</h2>
+        <ul id="diseaseList">
+            <li>
+                <h3>Disease: Flu</h3>
+                <h3>Treatment:</h3>
+                <p> yap yap yap</p>
+            </li>
+            <br>
+            <li> Cold</li>
+        </ul>
+</body>
+
+<script>
+    window.addEventListener('message', (event) => {
+        const data = event.data;
+        console.log(data); // Log the received data to the console
+        const diseaseList = data.diseases;
+
+        const diseaseListElement = document.getElementById('diseaseList');
+        diseaseListElement.innerHTML = ''; // Clear existing list items
+        for (const disease of diseaseList) {
+            const li = document.createElement('li');
+            const disttl = document.createElement('h3');
+            disttl.textContent = `Disease ${disease.name}`;
+            const distxt = document.createElement('p');
+            distxt.textContent = `Treatment: ${disease.treatment}`
+            li.appendChild(disttl);
+            li.appendChild(distxt);
+            diseaseListElement.appendChild(li);
+        }
+    })
+
+</script>
+
+</html>

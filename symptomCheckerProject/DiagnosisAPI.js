@@ -2,7 +2,7 @@ console.log('Diagnosis Loaded!')
 
 async function getDiagnosis(userData) {
   try {
-    const response = await fetch('/api/diagnose', {
+    const response = await fetch('http://localhost:3000/api/diagnose', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

@@ -1,0 +1,28 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#header {
+    background-color: #057bf16e;
+    height: 50px;
+    font-size: 15px;
+    text-align: left;
+    font-weight: bold;
+    color: #fafafa;
+}
+
+body {
+    margin: 0;
+
+    padding: 0;
+}
+
+#diseaseList {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+#diseaseList li {
+  display: list-item;
+}

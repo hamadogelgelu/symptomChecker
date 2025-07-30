@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
+  apiKey: process.env.OPENAPI_KEY
 });
 
 app.post('/api/diagnose', async (req, res) => {
@@ -38,14 +38,15 @@ Medications: ${userData.medications.join(', ') || 'None'}`;
 {
   "diseases": [
     {
-      "name": "Disease Name",
-      "treatment": "Specific treatment recommendation"
+       "name": "Disease Name",
+       "symptoms": ["common symptom 1", "common symptom 2", "common symptom 3"],
+       "treatment": "Specific treatment recommendation"
     },
     ...
   ]
 }
 
-Do NOT explain anything or output anything else.`
+Do NOT explain anything or output anything else. List at least three possible diseases with their treatments and at least three common symptoms for each disease.`
         },
         {
           role: 'user',
