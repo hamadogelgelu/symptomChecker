@@ -1,5 +1,5 @@
 #header {
-    background-color: #0155f15b;
+    background-color: #267ee2;
     padding: 0px;
     font-size: 24px;
     font-weight: bold;
@@ -9,5 +9,47 @@
 
 #header h1 {
     font-size: 35px;
+    color: white;
 }
 
+* {
+    font-family: 'Arial', sans-serif;
+}
+
+h3 {
+    font-size: 30px;
+}
+
+button {
+    background-color: #267ee2;
+    color: white;
+    border: none;
+    cursor: pointer;
+    height: 30px;
+}
+
+.enter {
+    font-size: 25px;
+}
+
+input {
+    height: 20px;
+}
+
+#selectordiv {
+    margin-top: 7px;
+    margin-bottom: 7x;
+}
+
+#selectordiv label {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+#getDiagnosisBtn {
+    color: white;
+    height: 60px;
+    width: 250px;
+    font-size: 30px;
+    padding: 10px 20px;
+}

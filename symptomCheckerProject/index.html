@@ -11,12 +11,12 @@
     <div id ="header">
         <h1>Symptom Checker</h1>
     </div>
-   
-        <label>Enter Symptoms:</label>
+        <h3>Symptoms:</h3>
+        <label class="enter">Enter Symptoms:</label>
         <input type="text" id="symptomInput" placeholder="Enter a symptom" autocomplete="off" />
         <button type="button" id="addSymptomBtn">Add Symptom</button>
 
-    <h3>Symptoms:</h3>
+    
     <ul id ="selectedSymptoms"></ul>
     <br>
     <label for="ageInput">Age: </label>
@@ -36,57 +36,69 @@
     <input type="number" id="weightInput" placeholder="Enter Your Weight in pounds" min="0">
     <br>
     <br>
-   
-         <label>Enter Allergies:</label>
+    <h3>Allergies:</h3>
+         <label class="enter">Enter Allergies:</label>
         <input type="text" id="allergyInput" placeholder="Enter an allergy" autocomplete="off" />
         <button type="button" id="addAllergy">Add Allergy</button>
  
-    <h3>Allergies:</h3>
+   
     <ul id ="selectedAllergies"></ul>
     
     <br>
-    <br>
-        <label>Enter Medical History:</label>
+    <br> 
+    <h3>Medical History:</h3>
+        <label class="enter">Enter Medical History:</label>
         <input type="text" id="historyInput" placeholder="Enter Medical History" autocomplete="off" />
         <button type="button" id="addHistory">Add History</button>
 
-    <h3>Medical History:</h3>
+   
     <ul id ="medicalHistory"></ul>
     <br>
     <br>
-        <label>Enter Current Medications:</label>
+     <h3>Medications:</h3>
+        <label class="enter">Enter Current Medications:</label>
         <input type="text" id="medicationInput" placeholder="Enter Medications" autocomplete="off" />
         <button type="button" id="addMedication">Add Medication</button>
 
-    <h3>Medications:</h3>
+   
     <ul id ="medicationsList"></ul>
     <br>
     <br>
     <h3>Lifestyle Questions:</h3>
-
+    <div id='selectordiv'>
     <label>Smoking:</label>
+    
     <input type="checkbox" id="smokeCheckbox">
-    <br>
-    <label id="alcoholLabel">Alcohol: </label>
+    </div>
+    <div id='selectordiv'>
+         <label id="alcoholLabel">Alcohol: </label>
     <button type="button" id="alcoholNone">None</button>
     <button type="button" id="alcoholLight">Light</button>
     <button type="button" id="alcoholModerate">Moderate</button>
     <button type="button" id="alcoholHeavy">Heavy</button>
-    <br>
-    <label id="exerciseLabel">Exercise: </label>
-    <button type="button" id="exerciseNone">None</button>
-    <button type="button" id="exerciseLight">Light</button>
-    <button type="button" id="exerciseModerate">Moderate</button>
-    <button type="button" id="exerciseHeavy">Heavy</button>
-    <br>
+    </div>
+
+    <div id='selectordiv'>
+             <label id="exerciseLabel">Exercise: </label>
+            <button type="button" id="exerciseNone">None</button>
+            <button type="button" id="exerciseLight">Light</button>
+            <button type="button" id="exerciseModerate">Moderate</button>
+            <button type="button" id="exerciseHeavy">Heavy</button>
+    </div>
+   
+    <div id='selectordiv'>
     <label id="dietLabel">Diet: </label>
     <button type="button" id="dietUnhealthy">None</button>
     <button type="button" id="dietModeratelyHealthy">Moderate</button>
     <button type="button" id="dietHealthy">Healthy</button>
+    </div>
+    <br>
+    <button type="button" id="getDiagnosisBtn">Get Diagnosis</button>  
 
     <br>
     <br>
-    <button type="button" id="getDiagnosisBtn">Get Diagnosis</button>  
+    <br>
+    <br>
 </body>
 </html>
 
