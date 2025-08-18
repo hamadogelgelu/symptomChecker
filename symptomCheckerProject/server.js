@@ -20,7 +20,7 @@ app.post('/api/diagnose', async (req, res) => {
 Symptoms: ${userData.symptoms.join(', ')}
 Age: ${userData.age}
 Sex: ${userData.sex}
-Height (cm): ${userData.height}
+Height (in): ${userData.height}
 Weight (lbs): ${userData.weight}
 Lifestyle: Smoking - ${userData.lifestyle.smoking}, Alcohol - ${userData.lifestyle.alcohol}, Exercise - ${userData.lifestyle.exercise}, Diet - ${userData.lifestyle.diet}
 Medical History: ${userData.medicalHistory.join(', ') || 'None'}

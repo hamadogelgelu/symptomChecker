@@ -29,7 +29,7 @@
     <br>
     <br>
     <label id = "height">Height: </label>
-    <input type="number" id="heightInput" placeholder="Enter Your Height in cm" min="0">
+    <input type="number" id="heightInput" placeholder="Enter Your Height in inches" min="0">
     <br>
     <br>
     <label id = "weight">Weight: </label>
@@ -96,6 +96,8 @@
     <button type="button" id="getDiagnosisBtn">Get Diagnosis</button>  
 
     <br>
+
+    <p id="Missing"></p>
     <br>
     <br>
     <br>
@@ -132,6 +134,43 @@
             selectedSymptomsList.appendChild(li);
         });
     }
+
+    function checkInputs() {
+    let missing = [];
+    if (diet == '' || diet == null)
+    {
+        missing.push('Diet');
+    }
+    if (exercise == '' || exercise == null)
+    {
+        missing.push('Exercise');
+    }
+    if (alcohol == '' || alcohol == null)
+    {
+        missing.push('Alcohol');
+    }
+    if (height <= 0 || height == null)
+    {
+        missing.push('Height');
+    }
+    if (weight <= 0 || weight == null)
+    {
+        missing.push('Weight'); 
+    }
+    if (symptoms.length == 0)
+    {
+        missing.push('Symptoms');
+    }
+    if (age <= 0 || age == null)
+    {
+        missing.push('Age');    
+    }
+    if (sex == '' || sex == null)
+    {
+        missing.push("Sex")
+    }
+    return missing;
+}
 
     function updateUserData() {
         let userData = {
@@ -372,6 +411,17 @@
 
         let data = updateUserData();
         
+        let missing = checkInputs();
+        if (missing.length > 0)
+        {
+            let missingStr = missing.join(', ');
+            document.getElementById('Missing').textContent = 'Missing or Invalid Inputs: ' + missingStr;
+            return;
+        }
+        else
+        {
+            document.getElementById('Missing').textContent = '';
+        }
         async function callFunc(userData)
         {
             try { 
