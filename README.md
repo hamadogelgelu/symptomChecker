@@ -25,6 +25,7 @@ Run the Project Locally
 Start the server by running server.js on a local server.
 
 Open index.html using a live server to access the website.
+
 [Watch short video](SymptomCheckerDemoGif.gif)
 
 [Watch full demo](SymptomCheckerDemo.mp4)
