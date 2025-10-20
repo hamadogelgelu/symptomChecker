@@ -26,4 +26,4 @@ Start the server by running server.js on a local server.
 
 Open index.html using a live server to access the website.
 
-[Watch full demo](demo.mp4)
+[Watch full demo](SymptomCheckerDemo.mp4)
